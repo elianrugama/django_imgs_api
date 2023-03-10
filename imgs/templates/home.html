@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>buscador imgs</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div id="imagenes">
+
+        </div>
+
+    </div>
+
+
+    <div class="container">
+        <style>
+            .containers {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-color: black;
+            }
+
+            .img {
+                width: 100px;
+                height: 100px;
+                border: 1px solid black;
+                margin: 10px;
+            }
+        </style>
+        <div>
+            <label for="">Buscar</label>
+            <input class="form-control" type="text" placeholder="buscador de imagenes" onkeyup="buscador()" id="buscar">
+        </div>
+
+
+
+    </div>
+    </div>
+    <div class="container">
+        <div>
+            <h5>resultados</h5>
+            <div id="contenido">
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <script>
+        // get the CSRF token from the cookie
+        const csrftoken = getCookie('csrftoken');
+
+        // make the POST request with the CSRF token in the headers
+        function buscador() {
+            if (document.getElementById('buscar').value == "") {
+
+            } else {
+                fetch('buscar/' + document.getElementById('buscar').value, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken
+                    },
+                    body: JSON.stringify({
+                        // include any data you want to send in the request body
+                        data: document.getElementById('buscar').value
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.hola);
+                        console.log(data);
+                        document.getElementById('contenido').innerHTML = data.hola;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+
+                console.log("Valor enviado:", document.getElementById('buscar').value); // Agrega esta línea para verificar el valor enviado
+
+            }
+        }
+
+        // helper function to get the CSRF token from the cookie
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function agregar(textp) {
+            console.log(textp);
+
+            var contenido = document.getElementById('imagenes');
+            contenido.innerHTML = '<img src="' + textp + '" alt="">';
+            
+        }
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+        integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
