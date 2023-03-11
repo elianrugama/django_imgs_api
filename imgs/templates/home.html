@@ -115,8 +115,21 @@
 
             var contenido = document.getElementById('imagenes');
             contenido.innerHTML = '<img src="' + textp + '" alt="">';
-            
+
         }
+
+
+        async function getImageUrls() {
+            const valor = "ejemplo";
+            const response = await fetch(`https://www.google.com/search?q=${valor}&tbm=isch`);
+            const html = await response.text();
+            const imageUrls = html.match(/"ou":"([^"]+)"/g).map(match => match.slice(6, -1));
+            for (const url of imageUrls) {
+                console.log(url);
+            }
+        }
+
+        getImageUrls();
 
     </script>
 
