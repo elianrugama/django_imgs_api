@@ -27,7 +27,7 @@ def valor(request,valor):
     data = ""
     for url in image_urls:
         print(url)
-        data += '<a><img class="img-thumbnail" src="' + url + '" id="' + url + '"></a><button onclick="agregar(\''+url+'\');">agregar</button>';
+        data += '<a><img class="img-thumbnail" src="' + url + '" id="' + url + '"></a><button onclick="agregar(\''+url+'\');">agregar</button>'
         #data += '<div class="card" style="width: 18rem;">< img src = "' + url + '" class="card-img-top" alt = "" ><div class="card-body"><a href="#" class="btn btn-primary" onclick="agregar(\''+url+'\');">Agregar</a></div></div > '
 
 
