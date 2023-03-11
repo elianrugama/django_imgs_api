@@ -28,11 +28,8 @@ def valor(request, valor):
     for url in image_urls:
         print(url)
         data += '<a><img class="img-thumbnail" src="' + url + '" id="' + url + '"></a><button onclick="agregar(\''+url+'\');">agregar</button>'
-<<<<<<< HEAD
-    
-=======
->>>>>>> 9e8b6e9a438d454372e5130ed9e2f03bd839df8b
         a += 1
+        
         if a == 6:
             break
 
