@@ -33,4 +33,4 @@ def valor(request, valor):
         if a == 6:
             break
 
-    return JsonResponse({"hola":data})
+    return JsonResponse({"respuesta":data})

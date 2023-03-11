@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <h3>1.3</h3>
+    <h3>1.1</h3>
     <div class="container">
         <div id="imagenes">
 
@@ -25,12 +25,6 @@
 
     <div class="container">
         <style>
-            .containers {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-color: black;
-            }
 
             .img {
                 width: 100px;
@@ -58,58 +52,43 @@
 
 
     </div>
+    <script>
+        function buscador() {
 
+            if (document.getElementById('buscar').value == "") {
+
+            } else {
+                fetch('buscar/a')
+                    .then(response => response.json())
+                    .then(data => console.log(data)
+                    )
+                    .catch(error => console.error(error));
+            }
+        }
+
+    </script>
 
     <script>
-        // get the CSRF token from the cookie
-        const csrftoken = getCookie('csrftoken');
-
-        // make the POST request with the CSRF token in the headers
         function buscador() {
             if (document.getElementById('buscar').value == "") {
 
             } else {
-                fetch('buscar/' + document.getElementById('buscar').value, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrftoken
-                    },
-                    body: JSON.stringify({
-                        // include any data you want to send in the request body
-                        data: document.getElementById('buscar').value
-                    })
-                })
+                fetch('buscar/' + document.getElementById('buscar').value)
                     .then(response => response.json())
                     .then(data => {
                         console.log(data.hola);
                         console.log(data);
-                        document.getElementById('contenido').innerHTML = data.hola;
+                        document.getElementById('contenido').innerHTML = data.respuesta;
                     })
                     .catch(error => {
                         console.error(error);
                     });
 
-                console.log("Valor enviado:", document.getElementById('buscar').value); // Agrega esta línea para verificar el valor enviado
+                console.log("Valor enviado:", document.getElementById('buscar').value);
 
             }
         }
 
-        // helper function to get the CSRF token from the cookie
-        function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
 
         function agregar(textp) {
             console.log(textp);
@@ -118,9 +97,6 @@
             contenido.innerHTML = '<img src="' + textp + '" alt="">';
 
         }
-
-
-       
 
     </script>
 
@@ -131,15 +107,6 @@
         integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
         crossorigin="anonymous"></script>
 
-
-        <script>
-            fetch('buscar/a')
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error(error));
-      
-          </script>
-      
 </body>
 
 </html>
